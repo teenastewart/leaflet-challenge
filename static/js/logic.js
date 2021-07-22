@@ -104,7 +104,7 @@ function createMap(earthquakes) {
   });
 
   // Create legend
-var legend = L.control({ position: "bottomleft" });
+var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(myMap) {
   var div = L.DomUtil.create("div", "legend");
@@ -114,7 +114,7 @@ legend.onAdd = function(myMap) {
   div.innerHTML += '<i class="circle" style="background: #5499C7"></i><span>30 &ndash; 50</span><br>';
   div.innerHTML += '<i class="circle" style="background: #2980B9"></i><span>50 &ndash; 70</span><br>';
   div.innerHTML += '<i class="circle" style="background: #1F618D"></i><span>70 &ndash; 90</span><br>';
-  div.innerHTML += '<i class="circle" style="background: #154360"></i><span>90 and deeper</span><br>';
+  div.innerHTML += '<i class="circle" style="background: #154360"></i><span>90+</span><br>';
 
   return div;
 };
