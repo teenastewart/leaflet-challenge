@@ -10,13 +10,12 @@ d3.json(queryUrl).then(function(data) {
 
 });
 
+//Create the features
 function createFeatures(earthquakeData) {
 
-
+    //Run a function to create the color based on depth
     function getColor(coordinates) {
-      // for (var i = 0; i < earthquakeData.length; i++) {
 
-        // Conditionals for countries points
         var color = "";
         if (coordinates[2] >= 90) {
           color = "#154360";
@@ -38,31 +37,12 @@ function createFeatures(earthquakeData) {
         }
        
         return (color);
-        // switch(coordinates[2]) {
-        // case (coordinates[2] >= 90) :
-        //   return "blue";
-        
-        // case (coordinates[2] <= 89 && coordinates[2] >= 70) :
-        //   return "green";
-        
-        // case (coordinates[2] <= 69 && coordinates[2] >= 50) :
-        //   return "yellow";
-        
-        // case (coordinates[2] <= 49 && coordinates[2] >= 30) :
-        //   return "orange";
-          
-        // case (coordinates[2] <= 29 && coordinates[2] >= 10) :
-        //     return "red";
-          
-        // case (coordinates[2] < 10):
-        //   return "pink";
-        
        
         }
 
-    // }
+
   
-    
+    //Run a function to calculate the marker radius based on magnitude
     function getRadius(mag) {
       var radius = Math.floor(mag) * 7
       return radius
@@ -104,17 +84,17 @@ function createMap(earthquakes) {
     accessToken: API_KEY
   });
 
-  // Define a baseMaps object to hold our base layer
+  // Define a baseMaps object to hold base layer
   var baseMaps = {
     "Light Map": lightmap
   };
 
-  // Create overlay object to hold our overlay layer
+  // Create overlay object to hold overlay layer
   var overlayMaps = {
     Earthquakes: earthquakes
   };
 
-  // Create our map, giving it the streetmap and earthquakes layers to display on load
+  // Create map with streetmap and earthquakes layers to display on load
   var myMap = L.map("map", {
     center: [
       37.09, -95.71
@@ -123,18 +103,18 @@ function createMap(earthquakes) {
     layers: [lightmap, earthquakes]
   });
 
-  /*Legend specific*/
+  // Create legend
 var legend = L.control({ position: "bottomleft" });
 
-legend.onAdd = function(map) {
+legend.onAdd = function(myMap) {
   var div = L.DomUtil.create("div", "legend");
   div.innerHTML += "<h4>Earthquake Depths</h4>";
-  div.innerHTML += '<i style="background: #D4E6F1"></i><span>-10 - 10</span><br>';
-  div.innerHTML += '<i style="background: #7FB3D5"></i><span>10 - 30</span><br>';
-  div.innerHTML += '<i style="background: #5499C7"></i><span>30 - 50</span><br>';
-  div.innerHTML += '<i style="background: #2980B9"></i><span>50 - 70</span><br>';
-  div.innerHTML += '<i style="background: #1F618D"></i><span>70 - 90</span><br>';
-  div.innerHTML += '<i style="background: #154360"></i><span>90+</span><br>';
+  div.innerHTML += '<i class="circle" style="background: #D4E6F1"></i><span>&ndash;10 &ndash; 10</span><br>';
+  div.innerHTML += '<i class="circle" style="background: #7FB3D5"></i><span>10 &ndash; 30</span><br>';
+  div.innerHTML += '<i class="circle" style="background: #5499C7"></i><span>30 &ndash; 50</span><br>';
+  div.innerHTML += '<i class="circle" style="background: #2980B9"></i><span>50 &ndash; 70</span><br>';
+  div.innerHTML += '<i class="circle" style="background: #1F618D"></i><span>70 &ndash; 90</span><br>';
+  div.innerHTML += '<i class="circle" style="background: #154360"></i><span>90 and deeper</span><br>';
 
   return div;
 };
@@ -143,8 +123,6 @@ legend.addTo(myMap);
 
 
   // Create a layer control
-  // Pass in our baseMaps and overlayMaps
-  // Add the layer control to the map
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
